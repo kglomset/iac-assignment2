@@ -44,7 +44,8 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform apply for Dev
-        run: terraform apply -auto-approve \
+        run: |
+            terraform apply -auto-approve \
             -var-file="terraform.dev.tfvars" \
             -var "vmss_admin_password=${VMSS_PASSWORD}"
             -var "vmss_admin_username=${VMSS_USERNAME}"
@@ -74,7 +75,8 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform apply for Staging
-        run: terraform apply -auto-approve \
+        run: |
+            terraform apply -auto-approve \
             -var-file="terraform.staging.tfvars" \
             -var "vmss_admin_password=${VMSS_PASSWORD}"
             -var "vmss_admin_username=${VMSS_USERNAME}"
@@ -106,7 +108,8 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform apply for Production
-        run: terraform apply -auto-approve \
+        run: |
+            terraform apply -auto-approve \
             -var-file="terraform.prod.tfvars" \
             -var "vmss_admin_password=${VMSS_PASSWORD}"
             -var "vmss_admin_username=${VMSS_USERNAME}"
