@@ -30,7 +30,6 @@ You also need to change the subscription_id in the provider block to your specif
         features {}
    }   
 ```
-You will also need to authenticate your account and initialize the backend using `terraform init` before pushing the files to remote repository. 
 
 ### Branches
 When uploading the files to a repository to test workflows, you need to create three branches: dev, staging and prod. These are required in order to have the pipeline working
@@ -38,22 +37,14 @@ When uploading the files to a repository to test workflows, you need to create t
 ### Environments
 You also need to create the environment 'production' in your repository settings in github, and assign an assignee. Without that you will not have any manual approval before deploying to prod. The assignee will get an email, and the changes in prod will not be deployed until approved.
 
-Also, you will need to set up environment variables in Github. These can be found in Settings -> Secrets and variables -> Actions. They need to have the following naming convention:
+### Credentials
+Also, you will need to set up environment secrets in Github. These can be found in Settings -> Secrets and variables -> Actions. They need to have the following naming convention in order to initialize the backend:
 ```
   ARM_CLIENT_ID
   ARM_CLIENT_SECRET
   ARM_SUBSCRIPTION_ID
   ARM_TENANT_ID
 ```
-
-### Azure authentication
-You will need to connect and authenticate your account to Azure, before pushing the files to a remote repository on Github. This can be done two ways, but option 1 is recommended:
-##### Option 1:
-Authenticate in VS Code using regular login
-```bash
-az login
-```
-A login display will then pop up and you can log in using username and password. 
 
 ##### Option 2
 Authenticate in VS Code using a shell login
