@@ -38,18 +38,17 @@ When uploading the files to a repository to test workflows, you need to create t
 You also need to create the environment 'production' in your repository settings in github, and assign an assignee. Without that you will not have any manual approval before deploying to prod. The assignee will get an email, and the changes in prod will not be deployed until approved.
 
 ### Credentials
-Also, you will need to set up environment secrets in Github. These can be found in Settings -> Secrets and variables -> Actions. They need to have the following naming convention in order to initialize the backend:
+Also, you will need to set up environment secrets in Github. These can be found in Settings -> Secrets and variables -> Actions. They need to have the following naming convention in order to initialize the backend and deploy:
 ```
   ARM_CLIENT_ID
   ARM_CLIENT_SECRET
   ARM_SUBSCRIPTION_ID
   ARM_TENANT_ID
+  DB_USERNAME
+  DB_PWD
+  VMSS_PWD
+  VMSS_USERNAME
 ```
 
-##### Option 2
-Authenticate in VS Code using a shell login
-```bash
-az login --service-principal --username < your-app-id > --password < your-password > --tenant < your-tenant-id >
-```
 ## Workflow triggering
 To trigger a workflow simply edit something in the infrastructure and push it up to a desired branch, e.g main, or a feature branch. This will trigger the workflow that validates and reviews the infrastructure code. To deploy the infrastructure to the desired environment, create a pull request from the given branch to the environment of choice. A pull request and merge from feature branch to dev, will trigger the workflow that deploys dev. The same goes for the other environments.
