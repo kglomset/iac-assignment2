@@ -8,6 +8,12 @@ on:
       - staging
       - prod
 
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  WORKING_DIR: ./deployments
 
 
 jobs:
@@ -15,13 +21,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/dev' }}
     runs-on: ubuntu-latest
     name: Deploy to Dev
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./deployments
-
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
       # Login to Azure CLI using service principal.
       - name: Azure CLI Login
         run: |
-          az login --service-principal --username ${{ env.AZURE_CLIENT_ID }} --password=${{ env.AZURE_CLIENT_SECRET }} --tenant ${{ env.AZURE_TENANT_ID }}
+          az login --service-principal --username ${{ env.ARM_CLIENT_ID }} --password=${{ env.ARM_CLIENT_SECRET }} --tenant ${{ env.ARM_TENANT_ID }}
 
       - name: Terraform init for Dev
         run: terraform init
@@ -47,12 +47,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/staging' }}
     runs-on: ubuntu-latest
     name: Deploy to Staging
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./deployments
 
     steps:
       - name: Checkout
@@ -61,8 +55,7 @@ jobs:
       # Login to Azure CLI using service principal.
       - name: Azure CLI Login
         run: |
-          az login --service-principal --username ${{ env.AZURE_CLIENT_ID }} --password=${{ env.AZURE_CLIENT_SECRET }} --tenant ${{ env.AZURE_TENANT_ID }}
-
+          az login --service-principal --username ${{ env.ARM_CLIENT_ID }} --password=${{ env.ARM_CLIENT_SECRET }} --tenant ${{ env.ARM_TENANT_ID }}
       - name: Terraform init for Staging
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }}
@@ -81,12 +74,6 @@ jobs:
     environment:
       name: production
     name: Deploy to Production
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./deployments
 
     steps:
       - name: Checkout
@@ -95,8 +82,7 @@ jobs:
       # Login to Azure CLI using service principal.
       - name: Azure CLI Login
         run: |
-          az login --service-principal --username ${{ env.AZURE_CLIENT_ID }} --password=${{ env.AZURE_CLIENT_SECRET }} --tenant ${{ env.AZURE_TENANT_ID }}
-
+          az login --service-principal --username ${{ env.ARM_CLIENT_ID }} --password=${{ env.ARM_CLIENT_SECRET }} --tenant ${{ env.ARM_TENANT_ID }}
       - name: Terraform init for Production
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }}
