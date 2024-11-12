@@ -47,9 +47,9 @@ jobs:
         run: |
             terraform apply -auto-approve \
             -var-file="terraform.dev.tfvars" \
-            -var "vmss_admin_password=${VMSS_PASSWORD}"
-            -var "vmss_admin_username=${VMSS_USERNAME}"
-            -var "server_admin_pwd=${DB_PASSWORD}"
+            -var "vmss_admin_password=${VMSS_PASSWORD}" \
+            -var "vmss_admin_username=${VMSS_USERNAME}" \
+            -var "server_admin_pwd=${DB_PASSWORD}" \
             -var "server_admin_username=${DB_USERNAME}"
         working-directory: ${{ env.WORKING_DIR }}
 
@@ -78,9 +78,9 @@ jobs:
         run: |
             terraform apply -auto-approve \
             -var-file="terraform.staging.tfvars" \
-            -var "vmss_admin_password=${VMSS_PASSWORD}"
-            -var "vmss_admin_username=${VMSS_USERNAME}"
-            -var "server_admin_pwd=${DB_PASSWORD}"
+            -var "vmss_admin_password=${VMSS_PASSWORD}" \
+            -var "vmss_admin_username=${VMSS_USERNAME}" \
+            -var "server_admin_pwd=${DB_PASSWORD}" \
             -var "server_admin_username=${DB_USERNAME}"
         working-directory: ${{ env.WORKING_DIR }}
 
@@ -111,8 +111,8 @@ jobs:
         run: |
             terraform apply -auto-approve \
             -var-file="terraform.prod.tfvars" \
-            -var "vmss_admin_password=${VMSS_PASSWORD}"
-            -var "vmss_admin_username=${VMSS_USERNAME}"
-            -var "server_admin_pwd=${DB_PASSWORD}"
+            -var "vmss_admin_password=${VMSS_PASSWORD}" \
+            -var "vmss_admin_username=${VMSS_USERNAME}" \
+            -var "server_admin_pwd=${DB_PASSWORD}" \
             -var "server_admin_username=${DB_USERNAME}"
         working-directory: ${{ env.WORKING_DIR }}
