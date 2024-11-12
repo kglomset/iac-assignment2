@@ -9,7 +9,7 @@ on:
       - 'staging'
       - 'prod'
     paths:
-      - 'kristiwg-oppg2/**'
+      - './**'
 
 
 
