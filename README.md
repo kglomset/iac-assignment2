@@ -37,7 +37,7 @@ When uploading the files to a repository to test workflows, you need to create t
 ### Environments
 You also need to create the environment 'production' in your repository settings in github, and assign an assignee. Without that you will not have any manual approval before deploying to prod. The assignee will get an email, and the changes in prod will not be deployed until approved.
 
-### Credentials
+### Credentials and secrets
 Also, you will need to set up environment secrets in Github. These can be found in Settings -> Secrets and variables -> Actions. They need to have the following naming convention in order to initialize the backend and deploy:
 ```
   ARM_CLIENT_ID
