@@ -25,6 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # Login to Azure CLI using service principal.
+      - name: Azure CLI Login
+        run: |
+          az login --service-principal -u ${{ env.AZURE_CLIENT_ID }} -p ${{ env.AZURE_CLIENT_SECRET }} --tenant ${{ env.AZURE_TENANT_ID }}
+
       - name: Terraform init for Dev
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }}
@@ -45,6 +50,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Login to Azure CLI using service principal.
+      - name: Azure CLI Login
+        run: |
+          az login --service-principal -u ${{ env.AZURE_CLIENT_ID }} -p ${{ env.AZURE_CLIENT_SECRET }} --tenant ${{ env.AZURE_TENANT_ID }}
 
       - name: Terraform init for Staging
         run: terraform init
@@ -68,6 +78,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Login to Azure CLI using service principal.
+      - name: Azure CLI Login
+        run: |
+          az login --service-principal -u ${{ env.AZURE_CLIENT_ID }} -p ${{ env.AZURE_CLIENT_SECRET }} --tenant ${{ env.AZURE_TENANT_ID }}
 
       - name: Terraform init for Production
         run: terraform init
